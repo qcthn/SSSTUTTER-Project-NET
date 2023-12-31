@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Khareedo.Models.Wishlist>
+@{
+    ViewBag.Title = "Wishlist";
+}
+
+ <!-- catg header banner section -->
+<section id="aa-catg-head-banner">
+    <img src="~/Content/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>Trang danh sách yêu thích</h2>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li class="active">Danh sách yêu thích</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / catg header banner section -->
+<!-- Cart view section -->
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table aa-wishlist-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Tình trạng tồn kho</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Session["username"] != null)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+
+                                                <tr>
+                                                    <td><a class="remove" href="@Url.Action("Remove", "WishList", new { id=item.WishlistID})"><fa class="fa fa-close"></fa></a></td>
+                                                    <td><a href="#"><img src="@item.Product.ImageURL" alt="@item.Product.AltText"></a></td>
+                                                    <td><a class="aa-cart-title" href="#">@item.Product.Name</a></td>
+                                                    <td>@item.Product.UnitPrice</td>
+                                                    <td>
+                                                        @if (item.Product.UnitInStock > 0)
+                                                        {
+                                                            <text>Trong kho (@item.Product.UnitInStock)</text>
+                                                        }
+                                                        else
+                                                        { <text>Hết hàng (@item.Product.UnitInStock)</text>}
+                                                    </td>
+                                                    <td><a href="@Url.Action("AddToCart", "WishList", new { id=item.WishlistID})" class="aa-add-to-cart-btn">Thêm vào giỏ hàng</a></td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <text>Vui lòng đăng nhập để xem danh sách mong muốn</text>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Cart view section -->
+
+

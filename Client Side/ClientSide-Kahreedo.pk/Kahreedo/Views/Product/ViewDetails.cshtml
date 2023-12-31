@@ -1,0 +1,214 @@
+﻿@model Khareedo.Models.Product
+
+@{
+    ViewBag.Title = "View Details";
+}
+<link href="~/Content/css/style.css" rel="stylesheet" />
+<!-- product category -->
+<section id="aa-product-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-product-details-area">
+                    <div class="aa-product-details-content">
+                        <div class="row">
+                            <!-- Modal view slider -->
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="aa-product-view-slider">
+                                    <div id="demo-1" class="simpleLens-gallery-container">
+                                        <div class="simpleLens-container">
+                                            <div class="simpleLens-big-image-container"><a data-lens-image="@Model.ImageURL" class="simpleLens-lens-image"><img src="@Model.ImageURL" class="simpleLens-big-image"></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal view content -->
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="aa-product-view-content">
+                                    <h3><strong> @Model.Name</strong></h3>
+                                    <div class="aa-product-rating">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (ViewBag.AvgRate >= i)
+                                            {
+                                                <span class="fa fa-star" style="color: #ff6600"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="fa fa-star-o" style="color: #ff6600"></span>
+                                            }
+                                        }
+
+                                    </div>
+
+                                    <div class="aa-price-block">
+                                        <span class="aa-product-view-price"><b> @Model.UnitPrice</b> VNĐ</span>
+                                        @if (Model.UnitInStock > 0)
+                                        {
+                                            <p class="aa-product-avilability"><span style="color:white ;background-color:green">Trong kho (@Model.UnitInStock)</span></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="aa-product-avilability"><span style="color:white;background-color:red">Hết hàng</span></p>
+                                        }
+                                        @{
+                                            TempData["returnURL"] = Request.RawUrl;
+                                        }
+
+
+                                    </div>
+                                    <p>@Model.ShortDescription</p>
+                                    <h4>Size</h4>
+                                    <div class="aa-prod-view-size">
+                                        <a href="#">S</a>
+                                        <a href="#">M</a>
+                                        <a href="#">L</a>
+                                        <a href="#">XL</a>
+                                    </div>
+                                 
+                                    <div class="aa-prod-quantity">
+                                        <h4>Số lượng:</h4>
+                                        <form action="">
+                                            <input type="number" name="quantity" min="1" max="99" maxlength="2" value="1" />
+                                        </form>
+                                    </div>
+                                    <div class="aa-prod-view-bottom">
+                                        @if (Model.UnitInStock > 0)
+                                        {
+                                            <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("AddToCart", "Product", new { id=Model.ProductID}) : Url.Action("Login", "Account"))">Add To Cart</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="aa-add-to-cart-btn" ))">Thêm vào giỏ hàng</a>
+
+                                        }
+                                        <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("WishList", "Product", new { id = Model.ProductID }) : Url.Action("Login", "Account"))">Wishlist</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aa-product-details-bottom">
+                        <ul class="nav nav-tabs" id="myTab2">
+                            <li><a href="#description" data-toggle="tab">Miêu tả</a></li>
+                            <li><a href="#review" data-toggle="tab">Đánh giá</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="description">
+                                <h2>ssstuter</h2>
+                                <p>/ét ét ét tắt tờ/</p>
+                                <p>Stutter nghĩa là người nói lắp. Bản thân founder của SSStutter, anh Thư Lê là một người từng mắc tật nói lắp nên để tên thuognw hiệu có tận 3 chữ "S" để mọi người khi đọc tên thương hiệu, ai cũng giống như mình. Sự độc đáo đến từ khiếm khuyết và trong một thế giới thương hiệu ai cũng hoàn hảo, chỉ có SSStutter không hoàn hảo, vậy nên SSStutter mới dể được nhớ đế.</p>
+                                <p>Ngoài ra 3 chữ S còn đại diện cho 3 từ khóa triết lý hướng đế của thương hiệu: <strong>Sage</strong> - <strong>Share</strong> - <strong>Success</strong></p>
+                                <ul>
+                                    <li>
+                                        <strong>Sage</strong>: Nhà hiền triết, người tinh thông luôn sẵn sàng học hỏi, đại diện cho hình mẫu tính cách của thương hiệu SSStutter.
+                                    </li>
+                                    <li><strong>Share</strong>: Chia sẻ, tạo ra nhiều giá trị cho cộng đồng, hướng người trẻ đến lối sống tích cực, tinh gọn</li>
+                                    <li><strong>Success</strong>: Khi có hiểu biết và thường xuyên thực hiện chia sẻ dẫn dắt, thành công sẽ đến không sớm thì muộn. SSS điều chỉnh hoạt động hàng ngày, hàng giờ để hướng đến thành công và đưa ra những sản phẩm tốt nhất.</li>
+                                </ul>
+                               
+                            </div>
+                            <div class="tab-pane fade " id="review">
+                                <div class="aa-product-review-area">
+                                    <h4><b>@ViewBag.TotalReviews</b> Đánh giá cho @Model.Name</h4>
+                                    <ul class="aa-review-nav">
+                                        @if (ViewBag.Reviews!=null)
+	                                    {
+                                            foreach (var item in ViewBag.Reviews)
+	                                            { 
+                                                     <li>
+                                                        <div class="media">
+                                                            <div class="media-left">
+                                                                <a href="#">
+                                                                    <img class="media-object" src="/Content/img/testimonial-img-3.jpg" alt="girl image">
+                                                                </a>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h4 class="media-heading"><strong>@item.Name</strong> - <span>@item.DateTime</span></h4>
+                                                                <div class="aa-product-rating">
+                                                                    @for (int i = 1; i <= 5; i++)
+                                                                    {
+                                                                        if(@item.Rate>=i)
+                                                                        {
+                                                                            <span class="fa fa-star"></span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="fa fa-star-o"></span>
+                                                                        }
+                                                                    }
+                                                                    
+                                                                </div>
+                                                                <p>@item.Review1</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                        }
+                                        
+                                    </ul>
+                                    <h4>Thêm một bài đánh giá</h4>
+                                    @if(Session["username"]!=null)
+                                    { 
+                                        using (Html.BeginForm("AddReview", "Product", new { productID = @Model.ProductID }, FormMethod.Post, new { @class = "aa-review-form" }))
+                                        {
+                                        <div class="aa-your-rating">
+                                            <p>Đánh giá của bạn</p>
+                                            @*<a id="one" href=""><span class="fa fa-star-o"></span></a>
+                                            <a id="two" href="" ><span class="fa fa-star-o"></span></a>
+                                            <a id="three" href="#"><span class="fa fa-star-o"></span></a>
+                                            <a id="four" href="#"><span class="fa fa-star-o"></span></a>
+                                            <a id="five" href="#"><span class="fa fa-star-o"></span></a>*@
+                                            <input type="number" name="rate" min="1" max="5" maxlength="1" value="1"/>
+                                        
+                                        </div>
+                                        <!-- review form -->
+                                    
+                                            <div class="form-group">
+                                                <label for="message">Đánh giá của bạn</label>
+                                                <textarea class="form-control" rows="3" name="message"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Tên</label>
+                                                <input type="text" class="form-control" name="name" placeholder="Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" name="email" placeholder="example@gmail.com">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                <label>Vui lòng đăng nhập để thêm đánh giá quan trọng của bạn về sản phẩm.</label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <!-- Related product -->
+                    <div class="aa-product-related-item">
+                        <h3>Những sảm phẩm tương tự</h3>
+                        <ul class="aa-product-catg aa-related-item-slider">
+                            <!-- start single product item -->
+
+                            <!-- start single product item -->
+                            @foreach (var item in (List<Khareedo.Models.Product>)@ViewBag.RelatedProducts)
+                                    {
+                                        { Html.RenderPartial("_Product", item); }
+                                    }
+                            <!-- end start single product item -->                 
+                           
+                        </ul>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / product category -->
